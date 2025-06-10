@@ -1,0 +1,10 @@
+**/__pycache__
+**/.venv
+.gitignore
+.devcontainer
+.vscode
+.git
+*.md
+*.log
+*.pyc
+LICENSE

@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspaces/TraidingBot-v2
+      - /var/run/docker.sock:/var/run/docker-host.sock
+    env_file:
+      - '../config.env'
+    command: sleep infinity
+

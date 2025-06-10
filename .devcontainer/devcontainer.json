@@ -1,0 +1,39 @@
+{
+    "name": "traiding-bot-dev",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/workspaces/TraidingBot-v2",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.pythonPath": "/usr/local/bin/python",
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-python.debugpy",
+                "ms-python.vscode-pylance",
+                "ms-python.isort",
+                "ms-python.black-formatter",
+                "ms-azuretools.vscode-docker",
+                "ms-vscode-remote.remote-containers",
+                "hbenl.vscode-test-explorer",
+                "littlefoxteam.vscode-python-test-adapter",
+                "davidanson.vscode-markdownlint",
+                "streetsidesoftware.code-spell-checker"
+            ]
+        }
+    },
+    "mounts": [
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "remoteUser": "vscode",
+    "forwardPorts": [
+        5000,
+        5432
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "postCreateCommand": "pip install -r requirements.txt"
+}
