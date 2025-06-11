@@ -1,0 +1,7 @@
+pandas
+numpy
+pybit
+dependency_injector
+typing_extensions
+pytest
+pytest-cov

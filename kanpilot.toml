@@ -1,16 +1,54 @@
-name = "project"
+name = "Trading Bot"
 skipFolders = [ "node_modules", ".vscode", "out", "dist", ".vscode-test" ]
 skipFiles = [ ".gitignore", "package.json" ]
 
 [[processes]]
 id = "process1"
 name = "To Do"
-tasks = [ ]
+
+  [[processes.tasks]]
+  id = "i8hp7x3onmt5ol1gi91nuf33"
+  title = "Получение рыночных данных"
+  description = "<p>Реализовать класс с апи запросами к бирже для получения рыночных данных с определнного ТФ и определенного количества</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = ""
+  priority = ""
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+    id = "h2hzc1j3y5kpy4sxv6357ly2"
+    title = "Написать запрос получения сырых данных"
+    completed = false
+
+    [[processes.tasks.checkList]]
+    id = "xw0xzv14ygp68a1lpuz3h7zw"
+    title = "Обработчик сырых данных"
+    completed = false
 
 [[processes]]
 id = "process2"
 name = "In Progress"
-tasks = [ ]
+
+  [[processes.tasks]]
+  id = "jskb13ena471gjaaxl999uuw"
+  title = "Баланс монеты и долларов"
+  description = "<p>Получить баланс через апи</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = ""
+  priority = ""
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+    id = "vbqm34oxmx3mop3l514linmd"
+    title = "Баланс в биткоинах"
+    completed = false
+
+    [[processes.tasks.checkList]]
+    id = "pf3dekosuc7ai3mv76tk9j51"
+    title = "Баланс в долларах"
+    completed = true
 
 [[processes]]
 id = "kwxvdgqsma8spo52djcwcfkj"
