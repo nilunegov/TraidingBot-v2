@@ -1,6 +1,6 @@
 from containers import Container
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     container = Container()
     bybit_api = container.bybit_api()
 

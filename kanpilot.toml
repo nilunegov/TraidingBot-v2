@@ -29,6 +29,16 @@ name = "To Do"
 [[processes]]
 id = "process2"
 name = "In Progress"
+tasks = [ ]
+
+[[processes]]
+id = "kwxvdgqsma8spo52djcwcfkj"
+name = "Testing"
+tasks = [ ]
+
+[[processes]]
+id = "process3"
+name = "Done"
 
   [[processes.tasks]]
   id = "jskb13ena471gjaaxl999uuw"
@@ -43,19 +53,9 @@ name = "In Progress"
     [[processes.tasks.checkList]]
     id = "vbqm34oxmx3mop3l514linmd"
     title = "Баланс в биткоинах"
-    completed = false
+    completed = true
 
     [[processes.tasks.checkList]]
     id = "pf3dekosuc7ai3mv76tk9j51"
     title = "Баланс в долларах"
     completed = true
-
-[[processes]]
-id = "kwxvdgqsma8spo52djcwcfkj"
-name = "Testing"
-tasks = [ ]
-
-[[processes]]
-id = "process3"
-name = "Done"
-tasks = [ ]
