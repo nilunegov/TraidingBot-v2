@@ -11,7 +11,14 @@ class UserAPI:
     def get_balance(
         self, coin: str = "USDT", symbol: str = "BTCUSDT", margin: bool = False
     ) -> float:
-        """Получает баланс указанной валюты на счете."""
+        """
+        Получает баланс указанной валюты на счете.
+
+        :param coin: Название валюты на кошельке 
+        :param symbol: Валютная пара для определения маржинального баланса на кошельке
+        :param margin: Флаг маржинальной торговли
+        :return balance: Целочисленное значение баланса
+        """
 
         self.logger.debug(f"⌛️ Запрос на получение баланса...")
 

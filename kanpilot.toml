@@ -7,9 +7,9 @@ id = "process1"
 name = "To Do"
 
   [[processes.tasks]]
-  id = "i8hp7x3onmt5ol1gi91nuf33"
-  title = "Получение рыночных данных"
-  description = "<p>Реализовать класс с апи запросами к бирже для получения рыночных данных с определнного ТФ и определенного количества</p>"
+  id = "ce0phpztqw2zv3g7v3h7z6q5"
+  title = "Апи ордеров"
+  description = "<p>Создать апи запросы для размещения, изменения и закрытия ордеров</p>"
   tag = "backlog"
   linkFiles = [ ]
   dueDate = ""
@@ -17,13 +17,23 @@ name = "To Do"
   linkCommits = [ ]
 
     [[processes.tasks.checkList]]
-    id = "h2hzc1j3y5kpy4sxv6357ly2"
-    title = "Написать запрос получения сырых данных"
+    id = "r83t0gvht4snrqce09tqpf8g"
+    title = "Размещение ордеров"
     completed = false
 
     [[processes.tasks.checkList]]
-    id = "xw0xzv14ygp68a1lpuz3h7zw"
-    title = "Обработчик сырых данных"
+    id = "g9xt7advksusyvbylrswpaw5"
+    title = "Закрытие ордеров"
+    completed = false
+
+    [[processes.tasks.checkList]]
+    id = "s9xwcsy6yz18v1o7cykdx3og"
+    title = "Изменение тейк-профита"
+    completed = false
+
+    [[processes.tasks.checkList]]
+    id = "i3b3abhnmgrjkxgk74g3hsff"
+    title = "Размещение тейк-профита"
     completed = false
 
 [[processes]]
@@ -58,4 +68,24 @@ name = "Done"
     [[processes.tasks.checkList]]
     id = "pf3dekosuc7ai3mv76tk9j51"
     title = "Баланс в долларах"
+    completed = true
+
+  [[processes.tasks]]
+  id = "i8hp7x3onmt5ol1gi91nuf33"
+  title = "Получение рыночных данных"
+  description = "<p>Реализовать класс с апи запросами к бирже для получения рыночных данных с определнного ТФ и определенного количества</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = ""
+  priority = ""
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+    id = "h2hzc1j3y5kpy4sxv6357ly2"
+    title = "Написать запрос получения сырых данных"
+    completed = true
+
+    [[processes.tasks.checkList]]
+    id = "xw0xzv14ygp68a1lpuz3h7zw"
+    title = "Обработчик сырых данных"
     completed = true
