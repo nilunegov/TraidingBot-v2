@@ -36,47 +36,14 @@ name = "To Do"
     title = "Размещение тейк-профита"
     completed = false
 
-  [[processes.tasks]]
-  id = "hf7yb9xenq76bh7n7htyvvmf"
-  title = "Написать программу для синхронизации ДФ на ТФ 15 и ТФ 60"
-  description = ""
-  tag = "backlog"
-  linkFiles = [ ]
-  dueDate = ""
-  checkList = [ ]
-  priority = ""
-  linkCommits = [ ]
-
-  [[processes.tasks]]
-  id = "hkotn7roy04143mbno2vubfd"
-  title = "Создать индикатор полос боллинджера"
-  description = ""
-  tag = "backlog"
-  linkFiles = [ ]
-  dueDate = ""
-  checkList = [ ]
-  priority = ""
-  linkCommits = [ ]
-
-  [[processes.tasks]]
-  id = "qihtok1xgzkrymt62n1g90y8"
-  title = "Создать сеточный индикатор"
-  description = ""
-  tag = "backlog"
-  linkFiles = [ ]
-  dueDate = ""
-  checkList = [ ]
-  priority = ""
-  linkCommits = [ ]
-
 [[processes]]
 id = "process2"
 name = "In Progress"
 
   [[processes.tasks]]
-  id = "odhego5towzvpizevo740z41"
-  title = "Загрузить исторические данные для стратегии"
-  description = "Загрузить данные с ТФ 15 и ТФ 60"
+  id = "hf7yb9xenq76bh7n7htyvvmf"
+  title = "Написать программу для синхронизации ДФ на ТФ 15 и ТФ 60"
+  description = ""
   tag = "backlog"
   linkFiles = [ ]
   dueDate = ""
@@ -139,6 +106,39 @@ name = "Done"
   description = "Написать скрипт для загрузки исторических данных с любого ТФ"
   tag = "backlog"
   linkFiles = [ "/backend/containers.py" ]
+  dueDate = ""
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "odhego5towzvpizevo740z41"
+  title = "Загрузить исторические данные для стратегии"
+  description = "Загрузить данные с ТФ 15 и ТФ 60"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = ""
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "hkotn7roy04143mbno2vubfd"
+  title = "Создать индикатор полос боллинджера"
+  description = ""
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = ""
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "qihtok1xgzkrymt62n1g90y8"
+  title = "Создать сеточный индикатор"
+  description = ""
+  tag = "backlog"
+  linkFiles = [ ]
   dueDate = ""
   checkList = [ ]
   priority = ""

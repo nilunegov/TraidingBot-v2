@@ -82,7 +82,7 @@ def get_kline(symbol: str, interval: str, limit: int, start_time: int) -> pd.Dat
     :param interval: Таймфрейм свечей ("1", "5", "15", "30", "60", и т.д.).
     :param limit: Количество свечей (максимум 1000 на запрос).
     :param start_time: Время начала (timestamp в миллисекундах).
-    :return DataFrame: DataFrame с историческими свечами (Start, Open, High, Low, Close, Volume, Turnover)
+    :return DataFrame: DataFrame с историческими свечами (Date, Open, High, Low, Close, Volume, Turnover)
     """
 
     candles = _get_candles(symbol, interval, limit, start_time)
@@ -140,4 +140,4 @@ def get_historical_kline(
 
 
 if __name__ == "__main__":
-    get_historical_kline("ETHUSDT", "15", "2025-03-01 00:00:00", "2025-06-01 00:00:00")
+    get_historical_kline("ETHUSDT", "60", "2025-03-01 00:00:00", "2025-06-01 00:00:00")
