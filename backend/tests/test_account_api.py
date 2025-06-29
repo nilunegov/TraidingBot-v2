@@ -2,7 +2,7 @@
 
 import pytest
 from unittest.mock import Mock
-from services import UserAPI
+from services import AccountAPI
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def test_get_balance_spot_success(mock_client, mock_logger):
         'result': {'list': [{'coin': [{'walletBalance': '123.45'}]}]}
     }
 
-    api = UserAPI(mock_client, mock_logger)
+    api = AccountAPI(mock_client, mock_logger)
     balance = api.get_balance(coin="USDT", margin=False)
 
     assert balance == 123.45
@@ -34,7 +34,7 @@ def test_get_balance_margin_success(mock_client, mock_logger):
         'result': {'maxTradeAmount': '200.5'}
     }
 
-    api = UserAPI(mock_client, mock_logger)
+    api = AccountAPI(mock_client, mock_logger)
     balance = api.get_balance(symbol="BTCUSDT", margin=True)
 
     assert balance == 200.5
@@ -45,7 +45,7 @@ def test_get_balance_margin_success(mock_client, mock_logger):
 def test_get_balance_api_exception(mock_client, mock_logger):
     mock_client.get_wallet_balance.side_effect = Exception("API failed")
 
-    api = UserAPI(mock_client, mock_logger)
+    api = AccountAPI(mock_client, mock_logger)
     balance = api.get_balance()
 
     assert balance == 0

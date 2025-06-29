@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 import pandas as pd
 import pytest
-from services import DataAPI
+from services import MarketAPI
 
 
 @pytest.fixture
@@ -24,8 +24,8 @@ def test_get_data_success(mock_client, mock_logger):
     ]
     mock_client.get_kline.return_value = {"result": {"list": candles_data}}
 
-    api = DataAPI(mock_client, mock_logger)
-    df = api.get_data("BTCUSDT", "1", 2)
+    api = MarketAPI(mock_client, mock_logger)
+    df = api.get_kline("BTCUSDT", "1", 2)
 
     assert isinstance(df, pd.DataFrame)
     assert len(df) == 2
@@ -46,8 +46,8 @@ def test_get_data_success(mock_client, mock_logger):
 def test_get_data_api_exception(mock_client, mock_logger):
     mock_client.get_kline.side_effect = Exception("API Error")
 
-    api = DataAPI(mock_client, mock_logger)
-    df = api.get_data("BTCUSDT", "1", 2)
+    api = MarketAPI(mock_client, mock_logger)
+    df = api.get_kline("BTCUSDT", "1", 2)
 
     assert isinstance(df, pd.DataFrame)
     assert df.empty
@@ -62,7 +62,7 @@ def test__get_candles_success(mock_client, mock_logger):
     ]
     mock_client.get_kline.return_value = {"result": {"list": expected_data}}
 
-    api = DataAPI(mock_client, mock_logger)
+    api = MarketAPI(mock_client, mock_logger)
     result = api._get_candles("BTCUSDT", "1", 2)
 
     assert result == expected_data
@@ -75,7 +75,7 @@ def test__get_candles_success(mock_client, mock_logger):
 def test__get_candles_exception(mock_client, mock_logger):
     mock_client.get_kline.side_effect = Exception("Connection timeout")
 
-    api = DataAPI(mock_client, mock_logger)
+    api = MarketAPI(mock_client, mock_logger)
     result = api._get_candles("BTCUSDT", "1", 2)
 
     assert isinstance(result, pd.DataFrame)

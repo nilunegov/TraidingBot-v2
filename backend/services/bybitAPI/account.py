@@ -3,7 +3,7 @@ import logging
 from pybit.unified_trading import HTTP
 
 
-class UserAPI:
+class AccountAPI:
     def __init__(self, client: HTTP, logger: logging.Logger):
         self.client = client
         self.logger = logger

@@ -4,7 +4,7 @@ import pandas as pd
 from pybit.unified_trading import HTTP
 
 
-class DataAPI:
+class MarketAPI:
     def __init__(self, client: HTTP, logger: logging.Logger):
         self.client = client
         self.logger = logger
@@ -26,7 +26,7 @@ class DataAPI:
 
         try:
             response = self.client.get_kline(
-                category="linear",  # Используем фьючерсную торговлю
+                category="spot",  # Используем спотовую торговлю
                 symbol=symbol,
                 interval=interval,
                 limit=limit,
@@ -67,7 +67,7 @@ class DataAPI:
         self.logger.debug(f"✅ Данные успешно обработаны!")
         return df
     
-    def get_data(self, symbol: str, interval: str, limit: int) -> pd.DataFrame:
+    def get_kline(self, symbol: str, interval: str, limit: int) -> pd.DataFrame:
         '''
         Получение исторических данных с Bybit.
 
@@ -87,3 +87,16 @@ class DataAPI:
         else:
             self.logger.info(f"✅ Данные успешно получены!")
         return candles
+    
+    
+    def get_last_price(self, symbol: str, interval: str) -> float:
+        self.logger.info(f"⌛️ Получение последней цены {symbol} c ТФ {interval}...")
+
+        try:
+            tmp = self.get_kline(symbol=symbol, interval=interval, limit=1)
+            price = tmp['Close'][0]
+        except Exception as e:
+            price = 0.0
+            self.logger.error(f"❌ Ошибка при получении данных: {e}")
+
+        return price

@@ -4,4 +4,5 @@ if __name__ == "__main__":
     container = Container()
     bybit_api = container.bybit_api()
 
-    print(bybit_api.data.get_data("BTCUSDT", '30', 100))
+    # last_price = bybit_api.market.get_last_price('BTCUSDT', '30')
+    print(bybit_api.trade.place_order('BTCUSDT', 'Buy', 0.00005))
