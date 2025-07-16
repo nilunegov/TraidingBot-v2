@@ -39,31 +39,72 @@ def sync_dfs(frames: list):
     pass
 
 
-def linreg(y: pd.Series, length: int) -> pd.Series:
-    """
-    Возвращает линию линейной регрессии (аналог ta.linreg в Pine Script).
-    
-    Parameters:
-        y (pd.Series): Ценовой ряд (например, Close).
-        length (int): Длина окна.
-    
-    Returns:
-        pd.Series: Кривая линейной регрессии (ŷ) той же длины.
-    """
-    def _linreg(values):
-        x = np.arange(len(values))
-        y = np.array(values)
-        if len(y) != length or np.isnan(y).any():
-            return np.nan
-        slope, intercept = np.polyfit(x, y, 1)
-        return intercept + slope * x[-1]  # ŷ в последней точке окна
+def lz(series: pd.Series, lzf: float) -> pd.Series:
+    lz_values = []
+    prev_lz = None
 
-    return y.rolling(length).apply(_linreg, raw=False)
+    for i in range(len(series)):
+        x = series.iloc[i]
+
+        if pd.isna(x):
+            lz_values.append(np.nan)
+            continue
+
+        if prev_lz is None:
+            prev_lz = x
+            lz_values.append(x)
+            continue
+
+        s = np.sign(x)
+        upper = prev_lz + lzf * abs(prev_lz) * s
+        lower = prev_lz - lzf * abs(prev_lz) * s
+
+        if i > 0 and x == series.iloc[i - 1]:
+            lz_val = x
+        elif x > upper or x < lower:
+            lz_val = x
+        else:
+            lz_val = prev_lz
+
+        prev_lz = lz_val
+        lz_values.append(lz_val)
+
+    return pd.Series(lz_values, index=series.index)
+
+
+
+def wma(series: pd.Series, length: int) -> pd.Series:
+    weights = np.arange(1, length + 1)
+    wma = series.rolling(window=length).apply(lambda x: np.dot(x, weights) / weights.sum(), raw=True)
+    return wma
+
+
+def lazy_bollinger_bands(src: pd.Series, length: int, mult: float, length_bbw: int, lzf: float) -> pd.DataFrame:
+    basis = wma(src, length)
+
+    # Стандартное отклонение
+    dev = mult * src.rolling(length).std()
+
+    upper = lz(basis + dev, lzf)
+    lower = lz(basis - dev, lzf)
+
+    bbw = (upper - lower) / basis * 100
+
+    # Сглаженный bbw
+    check_bbw = bbw.rolling(length_bbw).mean()
+
+    return pd.DataFrame({
+        "basis": basis,
+        "upper": upper,
+        "lower": lower,
+        "bbw": bbw,
+        "check_bbw": check_bbw
+    })
 
 
 def bollinger_bands(src: pd.Series, length: int, mult: float, length_bbw: int) -> pd.DataFrame:
     # Основная линия: линейная регрессия
-    basis = linreg(src, length)
+    basis = wma(src, length)
     
     # Стандартное отклонение
     dev = mult * src.rolling(length).std()
@@ -74,7 +115,7 @@ def bollinger_bands(src: pd.Series, length: int, mult: float, length_bbw: int) -
     bbw = (upper - lower) / basis * 100
 
     # Сглаженный bbw
-    check_bbw = linreg(bbw, length_bbw)
+    check_bbw = bbw.rolling(length_bbw).mean()
 
     return pd.DataFrame({
         "basis": basis,
@@ -103,18 +144,17 @@ def grid_bb(src: pd.Series, grid_cnt: int, length: int, mult: float) -> list:
     return grid_lst
 
 
-def get_data(length: int, mult: float, length_bbw: int, start_dt=None, end_dt=None):
+def get_data(length: int, mult: float, length_bbw: int, lzf: float, start_dt=None, end_dt=None):
     # Загружаем данные
-    d_15 = load_data('data/ETHUSDT_15.csv', start_dt, end_dt)
-    d_60 = load_data('data/ETHUSDT_60.csv', start_dt, end_dt)
+    d_60 = load_data('data/ETHUSDT_D.csv', start_dt, end_dt)
 
     # Расчитываем полосы Боллинджера
-    bb = bollinger_bands(d_60['Close'], length, mult, length_bbw)
+    bb = lazy_bollinger_bands(d_60['Close'], length, mult, length_bbw, lzf)
     d_60 = d_60.join(bb)
 
-    return d_15, d_60
+    return d_60
 
 
 if __name__ == '__main__':
-    d_15, d_60 = get_data(20, 2, 100)
+    d_15, d_60 = get_data(5, 2, 5, 0.05)
     print(d_60)

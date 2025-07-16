@@ -3,7 +3,7 @@ from matplotlib.dates import DateFormatter
 from numpy import float64
 import pandas as pd
 
-from tools import load_data, grid_bb
+from tools import get_data, grid_bb
 
 
 def plot_candlestick(ax, data, width=0.001):
@@ -38,15 +38,32 @@ def plot_grids(ax, grid):
         ax.plot(date, grid_df[col], color='black')
 
 
+def plot_bb(ax, bb):
+    date = bb.Date
+    upper = bb.upper
+    lower = bb.lower
+    basis = bb.basis
+    ax.plot(date, upper, color='black')
+    ax.plot(date, lower, color='black')
+    ax.plot(date, basis, color='black')
+
+
 if __name__ == '__main__':
-    # Загружаем данные
-    data = load_data('data/ETHUSDT_60.csv', start_dt='2025-05-20', end_dt='2025-05-30')
+    grid_cnt = 4
+    length = 20
+    length_bbw = 10
+    mult = 2
+
+    # # Загружаем данные
+    data = get_data(length=length, mult=mult, length_bbw=length_bbw, lzf=0.05, start_dt='2025-01-01', end_dt='2025-06-01')
 
     # Загружаем сетку
-    grid = grid_bb(data['Close'], grid_cnt=4, length=20, mult=2)
-    grid_data = {f'grid_{i}': grid[i] for i in range(len(grid))}
-    grid_data['Date'] = data['Date']
-    grid_df = pd.DataFrame(grid_data)
+    # grid = grid_bb(data['Close'], grid_cnt=grid_cnt, length=length, mult=mult)
+    # grid_data = {f'grid_{i}': grid[i] for i in range(len(grid))}
+    # grid_data['Date'] = data['Date']
+    # grid_df = pd.DataFrame(grid_data)
+
+    bb_data = data[['Date', 'basis', 'upper', 'lower']]
 
     fig, ax = plt.subplots(figsize=(24, 12))
 
@@ -55,8 +72,13 @@ if __name__ == '__main__':
     ax.xaxis_date()  # Ось X будет интерпретироваться как временные метки
 
     # Рисуем Supertrend и свечи
-    plot_candlestick(ax, data, 0.03)
-    plot_grids(ax, grid_df)
+    plot_candlestick(ax, data, 0.5)
+    plot_bb(ax, bb_data)
+    # plot_grids(ax, grid_df)
+
+    # Закрашиваем области флета
+    # ax.fill_between(data['Date'], data["upper"], data["lower"],
+    #             where=data['bbw'] <= data['check_bbw'], color="limegreen", alpha=0.4, step="mid")
 
     plt.xticks(rotation=30)  # Поворот меток времени
     plt.tight_layout()  # Автоматически подгоняет график для улучшения отображения

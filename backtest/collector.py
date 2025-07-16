@@ -110,7 +110,10 @@ def get_historical_kline(
     # Разница в миллисекундах
     delta = int((end_time - start_time).total_seconds() * 1000)
     # Количество запросов
-    i = int(interval) * 60 * 1000
+    if interval == 'D':
+        i = int(24 * 60) * 60 * 1000
+    else:
+        i = int(interval) * 60 * 1000
     cnt_request = delta // i
     if delta % i != 0:
         cnt_request += 1
@@ -140,4 +143,4 @@ def get_historical_kline(
 
 
 if __name__ == "__main__":
-    get_historical_kline("ETHUSDT", "60", "2025-03-01 00:00:00", "2025-06-01 00:00:00")
+    get_historical_kline("ETHUSDT", "D", "2025-01-01 00:00:00", "2025-06-01 00:00:00")
